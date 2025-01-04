@@ -19,7 +19,7 @@ func Run() {
 		},
 	})
 
-	discord.AddHandler(handler)
+	discord.AddHandler(onMessage)
 
 	err = discord.Open()
 	HandleError(err)
@@ -36,6 +36,9 @@ func Run() {
 	<-c
 }
 
-func handler(discord *discordgo.Session, message *discordgo.MessageCreate) {
-	discord.ChannelMessageSend(message.ChannelID, "asdas")
+func onMessage(discord *discordgo.Session, message *discordgo.MessageCreate) {
+	_, err := discord.ChannelMessageSend(message.ChannelID, "asdas")
+	if err != nil {
+		return
+	}
 }
